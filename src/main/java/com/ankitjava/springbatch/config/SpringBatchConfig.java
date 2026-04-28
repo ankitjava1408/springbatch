@@ -20,6 +20,7 @@ import org.springframework.batch.infrastructure.item.file.transform.DelimitedLin
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
@@ -38,7 +39,10 @@ public class SpringBatchConfig {
     public FlatFileItemReader<Customer> reader(LineMapper<Customer> lineMapper) {
         return new FlatFileItemReaderBuilder<Customer>()
                 .name("csvReader")
-                .resource(new FileSystemResource("src/main/resources/customers.csv"))
+
+                // ✅ FIX: FileSystemResource → ClassPathResource
+                .resource(new ClassPathResource("customers.csv"))
+
                 .linesToSkip(1)
                 .lineMapper(lineMapper)
                 .build();

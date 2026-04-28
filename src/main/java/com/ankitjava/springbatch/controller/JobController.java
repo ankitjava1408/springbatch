@@ -5,6 +5,7 @@ import org.springframework.batch.core.job.parameters.JobParameters;
 import org.springframework.batch.core.job.parameters.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,10 @@ public class JobController {
         this.runJob = runJob;
     }
 
+   @GetMapping("/welcome")
+    public String getMessage(){
+        return "Welcome to Docker World";
+    }
     @PostMapping("/importCustomers")
     public String importCsvToDBJob() {
         try {
